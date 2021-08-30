@@ -20,7 +20,12 @@ import * as RN from "react-native";
 function renderer(config) {
     console.log(config.component)
     console.log(RN[config.component])
-  if (typeof RN[config.component] !== "undefined") {
+    if (typeof RN[config.component] !== "undefined") {
+      
+      
+    console.log('config.children')
+    console.log(config.children)
+    console.log(typeof config.children)
     return React.createElement(
       RN[config.component],
       {
@@ -29,7 +34,11 @@ function renderer(config) {
       config.children &&
         (typeof config.children === "string"
           ? config.children
-          : config.children.map(c => renderer(c)))
+          : typeof config.children === "object" && config.action ? 
+          //  console.log(config.children) :
+           console.log(config.children) :
+          
+          config.children?.map(c => renderer(c)))
     );
   }
 }
