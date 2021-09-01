@@ -22,7 +22,9 @@ function renderer(config) {
     console.log(RN[config.component])
     if (typeof RN[config.component] !== "undefined") {
       
-      
+      if(typeof config.children === "string"){
+        
+      }
     console.log('config.children')
     console.log(config.children)
     console.log(typeof config.children)
@@ -36,7 +38,7 @@ function renderer(config) {
           ? config.children
           : typeof config.children === "object" && config.action ? 
           //  console.log(config.children) :
-           console.log(config.children) :
+           config.children :
           
           config.children?.map(c => renderer(c)))
     );

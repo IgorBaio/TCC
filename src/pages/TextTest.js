@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {createElement} from 'react';
+import React, { createElement } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as RN from 'react-native';
-import {DATA_DESTAQUE} from '../data/data'
+import { DATA_DESTAQUE } from '../data/data'
 import DataJson from '../data/dataJson.json'
 import RenderCard from '../data/RenderData'
 import DynamicComponent from "react-native-dynamic-render";
@@ -10,11 +10,13 @@ import DynamicComponent from "react-native-dynamic-render";
 export default function TextTest() {
   let WelcomeText = createElement(
     RN.TouchableOpacity,
-    { },
-     createElement(
+    {},
+    createElement(
       RN.Text,
-      { style: { color: "blue" }, title:"This is a welcome text", onClick:()=>RN.Alert.alert('Hello World'),
-       onPress:()=>RN.Alert.alert() },
+      {
+        style: { color: "blue" }, title: "This is a welcome text", onClick: () => RN.Alert.alert('Hello World'),
+        onPress: () => RN.Alert.alert()
+      },
       'ehheeheh'
     )
   )
@@ -87,7 +89,8 @@ export default function TextTest() {
           children: [
             {
               component: "Text",
-              children: "This is a title"
+              src: { key: 'text1' },
+              children: "This is a title a"
             },
             // {
             //   component: "subtitle",
@@ -101,10 +104,24 @@ export default function TextTest() {
             {
               component: "TouchableOpacity",
               action: 'button',
-              children:  createElement(
+              children: createElement(
+                RN["Text"],
+                {
+                  style: { color: "blue" },
+                  onPress: () => RN.Alert.alert('Narutooooo')
+                },
+                'Click me'
+              )
+            },
+            {
+              component: "Input",
+              action: 'input',
+              children: createElement(
                 RN.Text,
-                { style: { color: "blue" },
-                 onPress:()=>RN.Alert.alert() },
+                {
+                  style: { color: "blue" },
+                  onChange: () => RN.Alert.alert('Narutooooo')
+                },
                 'Click me'
               )
             }
@@ -115,9 +132,11 @@ export default function TextTest() {
   ];
   //#endregion
 
+  const [state, setState] = React.useState()
+
   return (
     <>
-  {/* <DynamicComponent
+      {/* <DynamicComponent
     {...props}
     mapComponents={mapComponents}
 /> */}
@@ -131,7 +150,46 @@ export default function TextTest() {
       {/* {createElement("h1",{},DataJson.code)} */}
       {/* {WelcomeText} */}
       {CardConfig.map(config => RenderCard(config))}
-      </>
+      {DataJson.map(dt => {
+        if (dt.category.includes('View')) {
+          let category = dt.category
+          return <View key={dt.id}>
+            {console.log('typeof dt.content')}
+            {console.log(dt.content.length > 0)}
+            {
+              dt.content.length > 0 && dt.content.map(dtc => {
+                if (dtc.category.toLowerCase().includes('text')) {
+                  return <Text key={dtc.id + dtc.category} style={dtc.style}>{dtc.content}</Text>
+                }
+              })
+            }
+          </View>
+        }
+        if (dt.category.toLowerCase().includes('text')) {
+          return <Text key={dt.id}>{dt.content}</Text>
+        }
+        if (dt.category.toLowerCase().includes('input')) {
+          return <RN.TextInput key={dt.id} style={dt.style} 
+          onChangeText={(test)=>{
+            // console.log('test')
+            // console.log(test)
+            // dt.content = test
+            // console.log('dt.content')
+            // console.log(dt.content)
+            setState(...state,[dt.key]=test)
+          }}
+          onBlur={(obj) => {
+            console.log('obj')
+            console.log(obj)
+          } } />
+        }
+      })}
+        <Text>
+      {
+        state?.NameLabel
+      }
+      </Text>
+    </>
   );
 }
 

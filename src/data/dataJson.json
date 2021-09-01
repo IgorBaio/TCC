@@ -1,5 +1,31 @@
-{
-    "id":0,
-    "category":"Text",
-    "code": "Obi-Wan Kenobi"
-}
+[
+    {
+        "id":0,
+        "category":"View",
+        "content": [
+            {
+                "id":1,
+                "category":"text",
+                "style": {"fontSize":20, "fontWeight":"bold"},
+                "content": "Hello There"
+            },
+            {
+                "id":2,
+                "category":"text",
+                "content": "General Kenobi"
+            }
+        ]
+    },
+    {
+    "id":1,
+    "category":"text",
+    "content": "Obi-Wan Kenobi"
+    },
+    {
+    "id":2,
+    "category":"input",
+    "key":"NameLabel",
+    "style": {"width":"100%", "backgroundColor":"red", "margin": 15},
+    "content": ""
+    }
+]
