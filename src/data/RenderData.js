@@ -22,16 +22,10 @@ function renderer(config) {
     console.log(RN[config.component])
     if (typeof RN[config.component] !== "undefined") {
       
-      if(typeof config.children === "string"){
-        
-      }
-    console.log('config.children')
-    console.log(config.children)
-    console.log(typeof config.children)
     return React.createElement(
       RN[config.component],
       {
-        src: config.src
+        src: config.src, ...config.props
       },
       config.children &&
         (typeof config.children === "string"
